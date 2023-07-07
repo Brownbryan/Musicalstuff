@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Middleware\AdminMiddleware;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +23,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth','isAdmin'])->group(function () {
     Route::get('/dashboard', function () {
-
+    
         return view('admin.index');
-     });
+     })->name('dashboard');
+     Route::get('create-category', [CategoryController::class, 'create'])->name('categories.create');
+     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+     Route::post('insert-category',[CategoryController::class,'insert'])->name('categories.insert');
+     Route::get('edit-category/{id}',[CategoryController::class,'edit'])->name('categories.edit');
  });
-Route::get('/categories', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('categories.index');
-Route::get('create-category', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('categories.create');
-Route::post('insert-category','App\Http\Controllers\Admin\CategoryController@insert');
+
+

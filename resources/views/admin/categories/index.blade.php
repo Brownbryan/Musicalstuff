@@ -31,11 +31,12 @@
                             <td>{{ $row->name  }}</td>
                             <td>{{ $row->description }}</td>
                             <td>
-                                <img src="{{ asset('uploads/new_uploads/category/'.$row->Image) }}" class="category-image" alt="Image Here">
+                         
+                                <img src="{{ asset('uploads/new_uploads/category/'.$row->image) }}" class="category-image" alt="Image Here">
                                 
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-info">Edit</button>
+                                <a href="{{ url('edit-category/'.$row->id) }}" class="btn btn-sm btn-info" >Edit</a>
                                 <button class="btn btn-sm btn-danger">Delete</button>
                             </td>
                         </tr>

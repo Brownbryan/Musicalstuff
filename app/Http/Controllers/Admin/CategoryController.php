@@ -16,7 +16,8 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
     public function insert(Request $request){
-    
+     
+
         $category = new Category();
         if($request->hasFile('image'))
         {
@@ -38,7 +39,11 @@ class CategoryController extends Controller
         $category->save();
 
 
-        return redirect()->route('dashboard')->with('success','Category Added Successfully');
+        return redirect()->route('categories.index')->with('success','Category Added Successfully');
 
     }   
+    public function edit($id){
+        $category = Category::find($id);
+        return view('admin.categories.edit',compact('category'));
+    }
 }
